@@ -99,11 +99,16 @@ class Discover1 extends StatelessWidget {
                                     fontSize: 15,
                                     fontFamily: 'SF Pro Text',
                                     fontWeight: FontWeight.w600,
-                                    height: 0.09,
+                                    height: 1.0,
                                     letterSpacing: -0.50,
                                   ),
                                 ),
                               ),
+                              const SizedBox(width:200),
+                              SizedBox(
+                                height: 12,
+                                child : Image.asset('src/RightSide.png')
+                              )
                             ],
                           ),
                         ),
@@ -159,10 +164,15 @@ class Discover1 extends StatelessWidget {
                                             letterSpacing: 0.37,
                                           ),
                                         ),
-                                        //const SizedBox(width: 180),
+                                        const SizedBox(width: 180),
+                                        SizedBox(
+                                            height: 18,
+                                            child: Image.asset('src/glass.png')
+                                        ),
                                       ],
                                     ),
                                   ),
+                                  const SizedBox(height: 5),
                                   Text(
                                     '다빈님 취향에 맞는 책을 추천하고 검색해요 ',
                                     style: TextStyle(
@@ -199,14 +209,7 @@ class Discover1 extends StatelessWidget {
                                 children: [
                                   Text(
                                     '이런 책은 어떠세요? ',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontFamily: 'SF Pro Display',
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.0,
-                                      letterSpacing: 0.37,
-                                    ),
+                                    style: subTitle,
                                   ),
                                 ],
                               ),
@@ -291,15 +294,9 @@ class Discover1 extends StatelessWidget {
                                 children: [
                                   Text(
                                     '이번주 베스트셀러 Top 10',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontFamily: 'SF Pro Display',
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.5,
-                                      letterSpacing: 0.37,
-                                    ),
+                                    style: subTitle,
                                   ),
+                                  const SizedBox(height: 5),
                                   Text(
                                     '2023.10.16~2023.10.22 기준',
                                     style: TextStyle(
@@ -441,6 +438,15 @@ class Discover1 extends StatelessWidget {
     fontWeight: FontWeight.w400,
     height: 0.09,
     letterSpacing: -0.24,
+  );
+
+  TextStyle subTitle =TextStyle(
+  color: Colors.black,
+  fontSize: 18,
+  fontFamily: 'SF Pro Display',
+  fontWeight: FontWeight.w600,
+  height: 1.0,
+  letterSpacing: 0.37,
   );
 
   BoxShadow boxShadow = BoxShadow(
