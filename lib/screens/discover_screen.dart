@@ -50,27 +50,6 @@ class Discover1 extends StatelessWidget {
                   decoration: BoxDecoration(),
                   child: Stack(
                     children: [
-                      // Positioned(
-                      //   left: 289.67,
-                      //   top: 17.33,
-                      //   child: Container(
-                      //     width: 66.66,
-                      //     height: 11.34,
-                      //     child: Stack(
-                      //       children: [
-                      //         Positioned(
-                      //           left: 42.33,
-                      //           top: 0,
-                      //           child: Container(
-                      //             width: 24.33,
-                      //             height: 11.33,
-                      //             //child: Stack(children:]),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
                       Positioned(
                         left: 24,
                         top: 12,
