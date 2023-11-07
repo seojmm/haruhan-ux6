@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haruhan/screens/discover_glass_screen.dart';
 
 void main() {
   runApp(const DiscoverScreen());
@@ -15,9 +16,16 @@ class DiscoverScreen extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
       home: Scaffold(
-        body: ListView(children: [
-          Discover1(),
-        ]),
+        resizeToAvoidBottomInset: false,
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Discover1(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -144,10 +152,22 @@ class Discover1 extends StatelessWidget {
                                           ),
                                         ),
                                         const SizedBox(width: 180),
-                                        SizedBox(
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => Search()), // 두 번째 페이지로 이동
+                                            );
+                                          },
+                                          child: SizedBox(
                                             height: 18,
-                                            child: Image.asset('src/glass.png')
-                                        ),
+                                            child: Image.asset('src/glass.png'),
+                                          ),
+                                        )
+                                        // SizedBox(
+                                        //     height: 18,
+                                        //     child: Image.asset('src/glass.png')
+                                        // ),
                                       ],
                                     ),
                                   ),
