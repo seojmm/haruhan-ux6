@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:haruhan/screens/finishbook_screen.dart';
 import 'package:haruhan/screens/home_screen.dart';
+import 'package:haruhan/screens/mainhome_screen.dart';
+import 'package:haruhan/screens/startbook_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: Mainhome(),
     );
   }
 }
