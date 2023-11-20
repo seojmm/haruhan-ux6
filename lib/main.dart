@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:haruhan/screens/community_screen.dart';
 import 'package:haruhan/screens/home_screen.dart';
-import 'package:haruhan/sign_up_screen.dart';
+import 'package:haruhan/screens/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
