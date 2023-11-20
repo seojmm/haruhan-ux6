@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  lottie: ^2.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -61,6 +62,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/images/
+    - assets/lottie/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -69,6 +73,21 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+     - src/몰입.png
+     - src/세이노.png
+     - src/트렌드코리아.png
+     - src/파친코.png
+     - src/파친코2.png
+     - src/퓨처셀프.png
+     - src/chevron.png
+     - src/chevron_fill.png
+     - src/glass.png
+     - src/RightSide.png
+     - src/x.png
+     - src/clock.png
+     - src/mybook1.png
+     - src/mybook2.png
+
      - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
