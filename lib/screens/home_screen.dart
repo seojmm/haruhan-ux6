@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -5,8 +6,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
-      body: Text("haruhan"),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () async {
+            await FirebaseAuth.instance.signOut();
+          },
+          child: Text("로그아웃"),
+        ),
+      ),
     );
   }
 }
