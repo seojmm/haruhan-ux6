@@ -13,9 +13,7 @@ class DiscoverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      ),
+
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         body : SingleChildScrollView(
@@ -34,7 +32,9 @@ class Discover1 extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          //clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
           child: Stack(
             children: [
               Positioned(
@@ -211,7 +211,7 @@ class Discover1 extends StatelessWidget {
                                         decoration: BoxDecoration(color: Color(0xFFDBDBDB)),
                                       ),
                                       const SizedBox(height: 20),
-                                      BestsellerContainer(num: '2', imagePath: 'src/퓨처셀프.png', bookName: '퓨처셀프')
+                                      BestsellerContainer(num: '2', imagePath: 'src/퓨처셀프.png', bookName: '퓨처 셀프')
 
                                       //BestsellerContainer('2', 'src/퓨처셀프.png', '퓨처셀프')
                                     ],

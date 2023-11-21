@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -11,9 +12,6 @@ class FigmaToCodeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      ),
       home: Scaffold(
         body: ListView(children: [
           MyBookEx(),
@@ -23,21 +21,24 @@ class FigmaToCodeApp extends StatelessWidget {
   }
 }
 
-class MyBookEx extends StatelessWidget {
+class MyBookEx extends StatefulWidget {
+  @override
+  _MyBookExState createState() => _MyBookExState();
+}
+
+class _MyBookExState extends State<MyBookEx> {
+  int readState = 0;
+  bool isLike = false; // 찜한책
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          width: 375,
-          height: 812,
-          padding: const EdgeInsets.only(top: 44, bottom: 83),
-          clipBehavior: Clip.antiAlias,
-          decoration: ShapeDecoration(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
             color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(44),
-            ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -69,26 +70,12 @@ class MyBookEx extends StatelessWidget {
                               children: [
                                 Text(
                                   'My Book',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 34,
-                                    fontFamily: 'SF Pro Display',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1,
-                                    letterSpacing: 0.37,
-                                  ),
+                                  style: myBook,
                                 ),
                                 const SizedBox(height: 5,),
                                 Text(
                                   '내가 읽은 책을 확인해요 ',
-                                  style: TextStyle(
-                                    color: Color(0x993C3C43),
-                                    fontSize: 13,
-                                    fontFamily: 'SF Pro Text',
-                                    fontWeight: FontWeight.w300,
-                                    height: 1,
-                                    letterSpacing: -0.24,
-                                  ),
+                                  style: detail,
                                 ),
                               ],
                             ),
@@ -97,72 +84,42 @@ class MyBookEx extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    SizedBox(
-                      width: 120,
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '읽은 책',
-                              style: bookStyle,
-                            ),
-                            TextSpan(
-                              text: '  ',
-                              style: TextStyle(
-                                fontSize: 26,
-                              ),
-                            ),
-                            TextSpan(
-                              text: '8',
-                              style: bookNum,
-                            ),
-                          ],
+                    bookTitle('읽은 책  ', '8'),
+                    const SizedBox(height: 24),
+                    GestureDetector(
+                      onTap: (){
+                        setState((){
+                          readState = (readState + 1)%4;
+                        });
+                      },
+                      child: Container(
+                        width: 343,
+                        height: 188,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(getImageForReadState(readState)),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(height: 24),
-                    Container(
-                      width: 343,
-                      height: 188,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('src/mybook1.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
+                    bookTitle('찜한 책  ', '5'),
                     const SizedBox(height: 24),
-                    SizedBox(
-                      width: 120,
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '찜한 책',
-                              style: bookStyle,
-                            ),
-                            TextSpan(
-                              text: '  ',
-                              style: TextStyle(
-                                fontSize: 26,
-                              ),
-                            ),
-                            TextSpan(
-                              text: '5',
-                              style: bookNum,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    Container(
-                      width: 343,
-                      height: 188,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('src/mybook2.png'),
-                          fit: BoxFit.fill,
+                    GestureDetector(
+                      onTap: (){
+                        setState((){
+                          isLike = !isLike;
+                        });
+                      },
+                      child: Container(
+                        width: 343,
+                        height: 188,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(isLike? 'src/mybook2-1.png': 'src/mybook2.png'),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
@@ -175,6 +132,59 @@ class MyBookEx extends StatelessWidget {
       ],
     );
   }
+  String getImageForReadState(int state) {
+    // 각 상태에 따라 다른 이미지 경로를 반환
+    switch (state) {
+      case 0:
+        return 'src/mybook1.png';
+      case 1:
+        return 'src/mybook1-1.png';
+      case 2:
+        return 'src/mybook1-2.png';
+      default:
+        return 'src/mybook1-3.png';
+    }
+  }
+}
+
+
+  Widget bookTitle(String title, String num){
+    return SizedBox(
+      width: 120,
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: title,
+              style: bookStyle,
+            ),
+            TextSpan(
+              text: num,
+              style: bookNum,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  TextStyle myBook = TextStyle(
+    color: Colors.black,
+    fontSize: 34,
+    fontFamily: 'SF Pro Display',
+    fontWeight: FontWeight.w600,
+    height: 1,
+    letterSpacing: 0.37,
+  );
+
+  TextStyle detail = TextStyle(
+    color: Color(0x993C3C43),
+    fontSize: 13,
+    fontFamily: 'SF Pro Text',
+    fontWeight: FontWeight.w300,
+    height: 1,
+    letterSpacing: -0.24,
+  );
 
   TextStyle bookStyle = TextStyle(
     color: Colors.black,
@@ -193,4 +203,3 @@ class MyBookEx extends StatelessWidget {
     height: 1,
     letterSpacing: -1,
   );
-}
