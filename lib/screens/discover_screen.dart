@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:haruhan/screens/discover_glass_screen.dart';
 
+import 'discover_detail_screen.dart';
+
 void main() {
   runApp(const DiscoverScreen());
 }
@@ -12,7 +14,7 @@ class DiscoverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -30,50 +32,16 @@ class Discover1 extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 375,
-          height: 812,
-          clipBehavior: Clip.antiAlias,
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(44),
-            ),
-          ),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          //clipBehavior: Clip.antiAlias,
           child: Stack(
             children: [
               Positioned(
-                left: 0,
-                top: 0,
-                child: Container(
-                  width: 375,
-                  height: 44,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 24,
-                        top: 12,
-                        child: Container(
-                          width: 54,
-                          height: 21,
-                          padding: const EdgeInsets.only(top: 1),
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
+                left: MediaQuery.of(context).size.width * 0.01,
                 top: 44,
                 child: Container(
-                  width: 375,
+                  width: MediaQuery.of(context).size.width,
                   height: 685,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
@@ -105,17 +73,14 @@ class Discover1 extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          'Discover',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 34,
-                                            fontFamily: 'SF Pro Text',
-                                            fontWeight: FontWeight.w600,
-                                            height: 1.0,
-                                            letterSpacing: 0.37,
-                                          ),
-                                        ),
+                                        DefaultTextStyle(style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 34,
+                                          fontFamily: 'SF Pro Text',
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.0,
+                                          letterSpacing: 0.37,
+                                        ), child: Text('Discover')),
                                         const SizedBox(width: 180),
                                         InkWell(
                                           onTap: () {
@@ -133,17 +98,14 @@ class Discover1 extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 5),
-                                  Text(
-                                    '다빈님 취향에 맞는 책을 추천하고 검색해요 ',
-                                    style: TextStyle(
-                                      color: Color(0x993C3C43),
-                                      fontSize: 13,
-                                      fontFamily: 'SF Pro Text',
-                                      fontWeight: FontWeight.w300,
-                                      height: 1.0,
-                                      letterSpacing: -0.24,
-                                    ),
-                                  ),
+                                  DefaultTextStyle(style: TextStyle(
+                                    color: Color(0x993C3C43),
+                                    fontSize: 13,
+                                    fontFamily: 'SF Pro Text',
+                                    fontWeight: FontWeight.w300,
+                                    height: 1.0,
+                                    letterSpacing: -0.24,
+                                    ), child: Text('다빈님 취향에 맞는 책을 추천하고 검색해요 ')),
                                 ],
                               ),
                             ),
@@ -167,32 +129,30 @@ class Discover1 extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '이런 책은 어떠세요? ',
-                                    style: subTitle,
-                                  ),
+                                  DefaultTextStyle(style: subTitle, child: Text('이런 책은 어떠세요?')),
                                 ],
                               ),
                             ),
                             const SizedBox(height: 5),
                             Container(
-                              width: double.infinity,
+                              width: MediaQuery.of(context).size.width,
                               height: 160,
-
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal, // 수평 스크롤
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageContainer('src/파친코.png'),
-                                    SizedBox(width: 20),
-                                    ImageContainer('src/세이노.png'),
-                                    SizedBox(width: 20),
-                                    ImageContainer('src/파친코2.png'),
-                                    SizedBox(width: 20),
-                                    ImageContainer('src/몰입.png'),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child : Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      ImageContainer(context, 'src/파친코.png'),
+                                      SizedBox(width: 20),
+                                      ImageContainer(context,'src/세이노.png'),
+                                      SizedBox(width: 20),
+                                      ImageContainer(context,'src/파친코2.png'),
+                                      SizedBox(width: 20),
+                                      ImageContainer(context,'src/몰입.png'),
                                   ],
+                                ),
                                 ),
                               ),
                             ),
@@ -216,22 +176,16 @@ class Discover1 extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '이번주 베스트셀러 Top 10',
-                                    style: subTitle,
-                                  ),
+                                  DefaultTextStyle(style: subTitle, child: Text('이번주 베스트셀러 Top 10')),
                                   const SizedBox(height: 5),
-                                  Text(
-                                    '2023.10.16~2023.10.22 기준',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                      fontFamily: 'SF Pro Text',
-                                      fontWeight: FontWeight.w300,
-                                      height: 1.0,
-                                      letterSpacing: -0.24,
-                                    ),
-                                  ),
+                                  DefaultTextStyle(style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontFamily: 'SF Pro Text',
+                                    fontWeight: FontWeight.w300,
+                                    height: 1.0,
+                                    letterSpacing: -0.24,
+                                    ), child: Text('2023.10.16~2023.10.22 기준')),
                                 ],
                               ),
                             ),
@@ -247,7 +201,9 @@ class Discover1 extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      BestsellerContainer('1', 'src/트렌드코리아.png', '트렌드 코리아 2024'),
+                                      BestsellerContainer(num: '1', imagePath: 'src/트렌드코리아.png', bookName: '트렌드 코리아 2024'),
+
+                                      //BestsellerContainer('1', 'src/트렌드코리아.png', '트렌드 코리아 2024'),
                                       const SizedBox(height: 20),
                                       Container(
                                         width: double.infinity,
@@ -255,7 +211,9 @@ class Discover1 extends StatelessWidget {
                                         decoration: BoxDecoration(color: Color(0xFFDBDBDB)),
                                       ),
                                       const SizedBox(height: 20),
-                                      BestsellerContainer('2', 'src/퓨처셀프.png', '퓨처셀프')
+                                      BestsellerContainer(num: '2', imagePath: 'src/퓨처셀프.png', bookName: '퓨처셀프')
+
+                                      //BestsellerContainer('2', 'src/퓨처셀프.png', '퓨처셀프')
                                     ],
                                 ),
                               ),
@@ -275,78 +233,31 @@ class Discover1 extends StatelessWidget {
     );
   }
 
-  Widget ImageContainer(String imagePath) {
+  Widget ImageContainer(BuildContext context, String imagePath) {
     return Container(
       width: 110,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(imagePath),
-          fit: BoxFit.fill,
-        ),
-       // boxShadow: [boxShadow],
-      ),
+      child : InkWell(
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Detail()),
+          );
+        },
+        child : SizedBox(
+          child: Image.asset(imagePath),
+        )
+
+      )
+      // decoration: BoxDecoration(
+      //   image: DecorationImage(
+      //     image: AssetImage(imagePath),
+      //     fit: BoxFit.fill,
+      //   ),
+      //  // boxShadow: [boxShadow],
+      // ),
     );
   }
 
-  Widget BestsellerContainer(String num, String imagePath, String bookName){
-    return Container(
-      width: 343,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-              num,
-              style: BestSellerNum
-          ),
-          const SizedBox(width: 20),
-          Container(
-            width: 72,
-            height: 97,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.fill,
-              ),
-              boxShadow: [ boxShadow],
-            ),
-          ),
-          const SizedBox(width: 20),
-          Container(
-            width: 130, // 너비를 130으로 설정
-            child: Text(
-                bookName,
-                style: BestSellerTitle
-            ),
-          ),
-          const SizedBox(width: 20),
-          SizedBox(
-              height: 33,
-              child: Image.asset('src/chevron_fill.png')
-          ),
-        ],
-      ),
-    );
-  }
-
-  TextStyle BestSellerNum = TextStyle(
-    color: Colors.black,
-    fontSize: 25,
-    fontFamily: 'SF Pro Text',
-    fontWeight: FontWeight.w400,
-    height: 0.03,
-    letterSpacing: -0.24,
-  );
-
-  TextStyle BestSellerTitle = TextStyle(
-    color: Colors.black,
-    fontSize: 15,
-    fontFamily: 'SF Pro Text',
-    fontWeight: FontWeight.w400,
-    height: 0.09,
-    letterSpacing: -0.24,
-  );
 
   TextStyle subTitle =TextStyle(
   color: Colors.black,
@@ -364,3 +275,89 @@ class Discover1 extends StatelessWidget {
     spreadRadius: 0,
   );
 }
+
+TextStyle BestSellerNum = TextStyle(
+  color: Colors.black,
+  fontSize: 25,
+  fontFamily: 'SF Pro Text',
+  fontWeight: FontWeight.w400,
+  height: 0.03,
+  letterSpacing: -0.24,
+);
+
+TextStyle BestSellerTitle = TextStyle(
+  color: Colors.black,
+  fontSize: 15,
+  fontFamily: 'SF Pro Text',
+  fontWeight: FontWeight.w400,
+  height: 0.09,
+  letterSpacing: -0.24,
+);
+
+class BestsellerContainer extends StatefulWidget {
+  final String num;
+  final String imagePath;
+  final String bookName;
+
+  const BestsellerContainer({
+    required this.num,
+    required this.imagePath,
+    required this.bookName,
+  });
+
+  @override
+  _BestsellerContainerState createState() => _BestsellerContainerState();
+}
+
+class _BestsellerContainerState extends State<BestsellerContainer> {
+  bool isImageToggled = false;
+
+  void toggleImage() {
+    setState(() {
+      isImageToggled = !isImageToggled;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 343,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          DefaultTextStyle(style: BestSellerNum, child: Text(widget.num)),
+          const SizedBox(width: 20),
+          Container(
+            width: 72,
+            height: 97,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(widget.imagePath),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          const SizedBox(width: 20),
+          Container(
+            width: 130,
+            child:
+            DefaultTextStyle(style: BestSellerTitle, child: Text(widget.bookName)),
+          ),
+          const SizedBox(width: 20),
+          GestureDetector(
+            onTap: toggleImage,
+            child: SizedBox(
+              height: 33,
+              child: Image.asset(
+                isImageToggled ? 'src/chevron_fill.png' : 'src/chevron.png',
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

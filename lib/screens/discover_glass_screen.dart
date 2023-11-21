@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const DiscoverGlassScreen());
-}
+// void main() {
+//   runApp(const DiscoverGlassScreen());
+// }
 
 class DiscoverGlassScreen extends StatelessWidget {
   const DiscoverGlassScreen({super.key});
@@ -11,7 +11,7 @@ class DiscoverGlassScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       home: Scaffold(
         body: ListView(children: [
@@ -28,16 +28,12 @@ class Search extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 375,
-          height: 812,
-          //padding: const EdgeInsets.only(top: 44, bottom: 83),
-          clipBehavior: Clip.antiAlias,
-          decoration: ShapeDecoration(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
             color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(44),
-            ),
           ),
+          //padding: const EdgeInsets.only(top: 44, bottom: 83),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -88,17 +84,16 @@ class Search extends StatelessWidget {
                                       const SizedBox(width: 6),
                                       Expanded(
                                         child: SizedBox(
-                                          child: Text(
-                                            '읽고 싶은 책을 검색해주세요',
-                                            style: TextStyle(
+
+                                          child:
+                                          DefaultTextStyle(style: TextStyle(
                                               color: Colors.black.withOpacity(0.3799999952316284),
                                               fontSize: 17,
                                               fontFamily: 'SF Pro Text',
                                               fontWeight: FontWeight.w400,
                                               height: 1.0,
                                               letterSpacing: -0.41,
-                                            ),
-                                          ),
+                                          ), child: Text('읽고 싶은 책을 검색해주세요')),
                                         ),
                                       ),
                                     ],
@@ -127,10 +122,7 @@ class Search extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '최근 검색어',
-                                  style: title,
-                                ),
+                                DefaultTextStyle(style: title, child: Text('최근 검색어')),
                                 const SizedBox(height: 7,),
                                 historyContainer('트렌드 코리아 2024'),
                                 Container(
@@ -172,10 +164,7 @@ class Search extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '실시간 인기 검색어',
-                                  style: title,
-                                ),
+                                DefaultTextStyle(style: title, child: Text('실시간 인기 검색어')),
                                 const SizedBox(height: 7,),
                                 popularContainer('1', '세이노의 가르침'),
                                 popularContainer('2', 'ETS 토익 정기시험 기출문제집 1000 Vol.3'),
@@ -208,15 +197,9 @@ class Search extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            num,
-            style: pnum,
-          ),
+          DefaultTextStyle(style: pnum, child: Text(num)),
           const SizedBox(width: 10),
-          Text(
-            bookName,
-            style: ptext,
-          ),
+          DefaultTextStyle(style: ptext, child: Text(bookName))
         ],
       ),
     );
@@ -237,10 +220,12 @@ class Search extends StatelessWidget {
           const SizedBox(width: 10),
           Container(
             width: 250,
-            child: Text(
-              bookName,
+            child: DefaultTextStyle(
               style: search,
-            ),
+              child: Text(
+                bookName,
+              ),
+            )
           ),
           const SizedBox(width: 10),
           SizedBox(
@@ -287,4 +272,5 @@ class Search extends StatelessWidget {
   height: 0.09,
   letterSpacing: -0.24,
   );
+
 }
