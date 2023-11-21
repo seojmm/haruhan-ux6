@@ -68,15 +68,9 @@ class _MyBookExState extends State<MyBookEx> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'My Book',
-                                  style: myBook,
-                                ),
+                                DefaultTextStyle(style: myBook, child: Text('My Book')),
                                 const SizedBox(height: 5,),
-                                Text(
-                                  '내가 읽은 책을 확인해요 ',
-                                  style: detail,
-                                ),
+                                DefaultTextStyle(style: detail, child: Text('내가 읽은 책을 확인해요 ')),
                               ],
                             ),
                           ),
