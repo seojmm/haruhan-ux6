@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "240193263403",
+    "project_id": "haruhan",
+    "storage_bucket": "haruhan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240193263403:android:69a06d164f04b76893976e",
+        "android_client_info": {
+          "package_name": "com.example.haruhan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPWHXNQzL0KnTHeD3tH07tqDe6NjQQFNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
