@@ -27,6 +27,29 @@ class HomeFrame extends StatefulWidget {
 class _HomeState extends State<HomeFrame> {
   bool isBook1Selected = false;
   bool isBook2Selected = false;
+  PageController pageController = PageController(initialPage: 1);
+  int readingDays = 16;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController.addListener(() {
+      if (pageController.page == 0) {
+        setState(() {
+          readingDays = 6;
+        });
+      } else if (pageController.page == 2) {
+        setState(() {
+          readingDays = 0;
+        });
+      } else {
+        setState(() {
+          readingDays = 16;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -79,7 +102,7 @@ class _HomeState extends State<HomeFrame> {
               ),
               const SizedBox(height: 20),
               Container(
-                height: 290,
+                height: 320,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -95,7 +118,7 @@ class _HomeState extends State<HomeFrame> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '최근 30일간 16일 독서',
+                            '최근 30일간 $readingDays일 독서',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -108,36 +131,318 @@ class _HomeState extends State<HomeFrame> {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      width: 343,
+                      width: double.infinity,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            width: 28,
-                            height: 28,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(),
-                            child: Stack(children: []),
+                          InkWell(
+                            onTap: () {
+                              pageController.previousPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                            child: Image.asset('assets/images/left_vector.png'),
                           ),
-                          const SizedBox(width: 30),
                           Container(
-                            height: 195,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [],
+                            width: 270,
+                            height: 225,
+                            child: PageView(
+                              controller: pageController,
+                              children: [
+                                GridView.builder(
+                                  itemCount: 30,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 6, // 가로에 표시할 항목 수를 설정합니다.
+                                    childAspectRatio:
+                                        1, // 가로 / 세로 비율을 설정합니다. 1로 설정하면 정사각형이 됩니다.
+                                    crossAxisSpacing: 3, // 열 사이의 공간을 설정합니다.
+                                    mainAxisSpacing: 3,
+                                  ),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ElevatedButton(
+                                      onPressed: () {
+                                        print('Button $index clicked!');
+                                        // 여기서 index 값에 따라 다른 동작을 수행하도록 로직을 구현하면 됩니다.
+                                        // 예를 들어, 다음과 같이 할 수 있습니다:
+                                        switch (index) {
+                                          case 25:
+                                            // 첫 번째 버튼이 눌렸을 때의
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text('11월 16일 독서'),
+                                                  content: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Text('오늘 읽은 책: 파친코 2'),
+                                                      Text(
+                                                          '오늘의 독서 시간: 1시간 15분 10초'),
+                                                      Text(
+                                                          '오늘 읽은 페이지: ~280페이지'),
+                                                    ],
+                                                  ),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text('확인'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          // 그 외에도 필요한 만큼 case를 추가하면 됩니다.
+                                        }
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(index ==
+                                                0
+                                            ? Color(0xFFD9D9D9)
+                                            : index == 1
+                                                ? Color(0xFFD9D9D9)
+                                                : index == 2
+                                                    ? Color(0xFFD9D9D9)
+                                                    : index == 3
+                                                        ? Color(0xFFD9D9D9)
+                                                        : index == 4
+                                                            ? Color(0xFFD9D9D9)
+                                                            : index == 5
+                                                                ? Color(
+                                                                    0xFFD9D9D9)
+                                                                : index == 6
+                                                                    ? Color(
+                                                                        0xFFD9D9D9)
+                                                                    : index == 7
+                                                                        ? Color(
+                                                                            0xFFD9D9D9)
+                                                                        : index ==
+                                                                                8
+                                                                            ? Color(0xFFD9D9D9)
+                                                                            : index == 9
+                                                                                ? Color(0xFFD9D9D9)
+                                                                                : index == 10
+                                                                                    ? Color(0xFFD9D9D9)
+                                                                                    : index == 11
+                                                                                        ? Color(0xFFD9D9D9)
+                                                                                        : index == 12
+                                                                                            ? Color(0xFFD9D9D9)
+                                                                                            : index == 13
+                                                                                                ? Color(0xFFD9D9D9)
+                                                                                                : index == 14
+                                                                                                    ? Color(0xFFD9D9D9)
+                                                                                                    : index == 15
+                                                                                                        ? Color(0xFFD9D9D9)
+                                                                                                        : index == 16
+                                                                                                            ? Color(0xFFD9D9D9)
+                                                                                                            : index == 17
+                                                                                                                ? Color(0xFFD9D9D9)
+                                                                                                                : index == 18
+                                                                                                                    ? Color(0xFFD9D9D9)
+                                                                                                                    : index == 19
+                                                                                                                        ? Color(0xFFBFF3FF)
+                                                                                                                        : index == 20
+                                                                                                                            ? Color(0xFFD9D9D9)
+                                                                                                                            : index == 21
+                                                                                                                                ? Color(0xFFD9D9D9)
+                                                                                                                                : index == 22
+                                                                                                                                    ? Color(0xFFD9D9D9)
+                                                                                                                                    : index == 23
+                                                                                                                                        ? Color(0xFFBFF3FF)
+                                                                                                                                        : index == 24
+                                                                                                                                            ? Color(0xFFD9D9D9)
+                                                                                                                                            : index == 25
+                                                                                                                                                ? Color(0xFF21D8F1)
+                                                                                                                                                : index == 26
+                                                                                                                                                    ? Color(0xFFD9D9D9)
+                                                                                                                                                    : index == 27
+                                                                                                                                                        ? Color(0xFF6BFFFF)
+                                                                                                                                                        : index == 28
+                                                                                                                                                            ? Color(0xFF006F92)
+                                                                                                                                                            : Color(0xFFD9D9D9)),
+                                        // 버튼의 배경색을 설정합니다.
+                                      ),
+                                      child: Container(),
+                                    );
+                                  },
+                                ),
+                                GridView.builder(
+                                  itemCount: 30,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 6, // 가로에 표시할 항목 수를 설정합니다.
+                                    childAspectRatio:
+                                        1, // 가로 / 세로 비율을 설정합니다. 1로 설정하면 정사각형이 됩니다.
+                                    crossAxisSpacing: 3, // 열 사이의 공간을 설정합니다.
+                                    mainAxisSpacing: 3,
+                                  ),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ElevatedButton(
+                                      onPressed: () {
+                                        print('Button $index clicked!');
+                                        // 여기서 index 값에 따라 다른 동작을 수행하도록 로직을 구현하면 됩니다.
+                                        // 예를 들어, 다음과 같이 할 수 있습니다:
+                                        switch (index) {
+                                          case 25:
+                                            // 첫 번째 버튼이 눌렸을 때의
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text('11월 16일 독서'),
+                                                  content: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Text('오늘 읽은 책: 파친코 2'),
+                                                      Text(
+                                                          '오늘의 독서 시간: 1시간 15분 10초'),
+                                                      Text(
+                                                          '오늘 읽은 페이지: ~280페이지'),
+                                                    ],
+                                                  ),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text('확인'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          // 그 외에도 필요한 만큼 case를 추가하면 됩니다.
+                                        }
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(index ==
+                                                0
+                                            ? Color(0xFFBFF3FF)
+                                            : index == 1
+                                                ? Color(0xFFD9D9D9)
+                                                : index == 2
+                                                    ? Color(0xFFBFF3FF)
+                                                    : index == 3
+                                                        ? Color(0xFF6BFFFF)
+                                                        : index == 4
+                                                            ? Color(0xFFBFF3FF)
+                                                            : index == 5
+                                                                ? Color(
+                                                                    0xFF21D8F1)
+                                                                : index == 6
+                                                                    ? Color(
+                                                                        0xFF21D8F1)
+                                                                    : index == 7
+                                                                        ? Color(
+                                                                            0xFFD9D9D9)
+                                                                        : index ==
+                                                                                8
+                                                                            ? Color(0xFFD9D9D9)
+                                                                            : index == 9
+                                                                                ? Color(0xFFBFF3FF)
+                                                                                : index == 10
+                                                                                    ? Color(0xFFD9D9D9)
+                                                                                    : index == 11
+                                                                                        ? Color(0xFF6BFFFF)
+                                                                                        : index == 12
+                                                                                            ? Color(0xFF006F92)
+                                                                                            : index == 13
+                                                                                                ? Color(0xFFBFF3FF)
+                                                                                                : index == 14
+                                                                                                    ? Color(0xFF6BFFFF)
+                                                                                                    : index == 15
+                                                                                                        ? Color(0xFFD9D9D9)
+                                                                                                        : index == 16
+                                                                                                            ? Color(0xFFD9D9D9)
+                                                                                                            : index == 17
+                                                                                                                ? Color(0xFFD9D9D9)
+                                                                                                                : index == 18
+                                                                                                                    ? Color(0xFFD9D9D9)
+                                                                                                                    : index == 19
+                                                                                                                        ? Color(0xFF6BFFFF)
+                                                                                                                        : index == 20
+                                                                                                                            ? Color(0xFF21D8F1)
+                                                                                                                            : index == 21
+                                                                                                                                ? Color(0xFFBFF3FF)
+                                                                                                                                : index == 22
+                                                                                                                                    ? Color(0xFFBFF3FF)
+                                                                                                                                    : index == 23
+                                                                                                                                        ? Color(0xFFD9D9D9)
+                                                                                                                                        : index == 24
+                                                                                                                                            ? Color(0xFFD9D9D9)
+                                                                                                                                            : index == 25
+                                                                                                                                                ? Color(0xFF006F92)
+                                                                                                                                                : Color(0xFFD9D9D9)),
+                                        // 버튼의 배경색을 설정합니다.
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            side: index == 29
+                                                ? BorderSide(width: 3)
+                                                : BorderSide.none,
+                                            borderRadius:
+                                                BorderRadius.circular(3),
+                                          ),
+                                        ),
+                                      ),
+                                      child: Container(),
+                                    );
+                                  },
+                                ),
+                                GridView.builder(
+                                  itemCount: 30,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 6, // 가로에 표시할 항목 수를 설정합니다.
+                                    childAspectRatio:
+                                        1, // 가로 / 세로 비율을 설정합니다. 1로 설정하면 정사각형이 됩니다.
+                                    crossAxisSpacing: 3, // 열 사이의 공간을 설정합니다.
+                                    mainAxisSpacing: 3,
+                                  ),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ElevatedButton(
+                                      onPressed: () {
+                                        print('Button $index clicked!');
+                                        // 여기서 index 값에 따라 다른 동작을 수행하도록 로직을 구현하면 됩니다.
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(Color(
+                                                0xFFD9D9D9)), // 버튼의 배경색을 설정합니다.
+                                      ),
+                                      child: null,
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(width: 30),
-                          Container(
-                            width: 28,
-                            height: 28,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(),
-                            child: Stack(children: []),
+                          InkWell(
+                            onTap: () {
+                              pageController.nextPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                            child: Image.asset('assets/images/Vector.jpg'),
                           ),
                         ],
                       ),
@@ -147,81 +452,117 @@ class _HomeState extends State<HomeFrame> {
                       width: double.infinity,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            'Less',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 11,
-                              fontFamily: 'SF Pro Display',
-                              fontWeight: FontWeight.w600,
-                              height: 0.41,
-                              letterSpacing: 0.37,
-                            ),
+                          Row(
+                            children: [
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: ShapeDecoration(
+                                  color: Color(0xFFD9D9D9),
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(width: 3),
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Today',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 11,
+                                  fontFamily: 'SF Pro Display',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0.41,
+                                  letterSpacing: 0.37,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 5),
-                          Container(
-                            width: 20,
-                            height: 20,
-                            decoration: ShapeDecoration(
-                              color: Color(0xFFD9D9D9),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(3)),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Container(
-                            width: 20,
-                            height: 20,
-                            decoration: ShapeDecoration(
-                              color: Color(0xFFBFF3FF),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(3)),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Container(
-                            width: 20,
-                            height: 20,
-                            decoration: ShapeDecoration(
-                              color: Color(0xFF6BFFFF),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(3)),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Container(
-                            width: 20,
-                            height: 20,
-                            decoration: ShapeDecoration(
-                              color: Color(0xFF21D8F1),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(3)),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Container(
-                            width: 20,
-                            height: 20,
-                            decoration: ShapeDecoration(
-                              color: Color(0xFF006F92),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(3)),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            'More',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 11,
-                              fontFamily: 'SF Pro Display',
-                              fontWeight: FontWeight.w600,
-                              height: 0.41,
-                              letterSpacing: 0.37,
-                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Less',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 11,
+                                  fontFamily: 'SF Pro Display',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0.41,
+                                  letterSpacing: 0.37,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: ShapeDecoration(
+                                  color: Color(0xFFD9D9D9),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3)),
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: ShapeDecoration(
+                                  color: Color(0xFFBFF3FF),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3)),
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: ShapeDecoration(
+                                  color: Color(0xFF6BFFFF),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3)),
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: ShapeDecoration(
+                                  color: Color(0xFF21D8F1),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3)),
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: ShapeDecoration(
+                                  color: Color(0xFF006F92),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3)),
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                'More',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 11,
+                                  fontFamily: 'SF Pro Display',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0.41,
+                                  letterSpacing: 0.37,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -405,7 +746,7 @@ class _HomeState extends State<HomeFrame> {
                   children: [
                     Column(
                       children: [
-                        Image.asset('assets/images/discover.png'),
+                        Image.asset('assets/images/discover_home.png'),
                         Text(
                           'Discover',
                           textAlign: TextAlign.center,
@@ -422,7 +763,7 @@ class _HomeState extends State<HomeFrame> {
                     ),
                     Column(
                       children: [
-                        Image.asset('assets/images/bookmark.png'),
+                        Image.asset('assets/images/bookmark_home.png'),
                         Text(
                           'My Books',
                           textAlign: TextAlign.center,
@@ -439,7 +780,7 @@ class _HomeState extends State<HomeFrame> {
                     ),
                     Column(
                       children: [
-                        Image.asset('assets/images/home.png'),
+                        Image.asset('assets/images/home_home.png'),
                         Text(
                           'Home',
                           textAlign: TextAlign.center,
@@ -456,7 +797,7 @@ class _HomeState extends State<HomeFrame> {
                     ),
                     Column(
                       children: [
-                        Image.asset('assets/images/community.png'),
+                        Image.asset('assets/images/community_home.png'),
                         Text(
                           'Community',
                           textAlign: TextAlign.center,
