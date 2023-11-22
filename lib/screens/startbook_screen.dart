@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:haruhan/screens/finishbook_screen.dart';
 import 'package:lottie/lottie.dart';
 
@@ -35,6 +36,7 @@ class _VFrameState extends State<VFrame> {
   bool _isRunning = false;
   bool _isAnimationPlaying = false;
   TextEditingController _textEditingController = TextEditingController();
+  String dropdownValue = '1점';
 
   void recordDialog() {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -126,6 +128,7 @@ class _VFrameState extends State<VFrame> {
 
   @override
   Widget build(BuildContext context) {
+    var thisState = this;
     return Column(
       children: [
         Container(
@@ -240,9 +243,83 @@ class _VFrameState extends State<VFrame> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Finishbook()),
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(
+                                builder: (context, setState) {
+                              return AlertDialog(
+                                title: Text("독서 종료"),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Row(
+                                      children: [
+                                        Text("오늘까지 읽은 페이지: ~ "),
+                                        SizedBox(
+                                          width: 50,
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                              counterText: '',
+                                            ),
+                                            keyboardType: TextInputType.number,
+                                            maxLength: 4,
+                                            maxLengthEnforcement:
+                                                MaxLengthEnforcement.enforced,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("오늘 독서평가:  "),
+                                        DropdownButton<String>(
+                                          value: dropdownValue,
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              dropdownValue = newValue!;
+                                            });
+                                          },
+                                          items: <String>[
+                                            '1점',
+                                            '2점',
+                                            '3점',
+                                            '4점',
+                                            '5점'
+                                          ].map<DropdownMenuItem<String>>(
+                                              (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text("취소"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text("독서끝"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Finishbook()),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                          },
                         );
                       },
                       child: Text(
